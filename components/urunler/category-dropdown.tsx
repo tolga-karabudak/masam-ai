@@ -50,7 +50,7 @@ export function CategoryDropdown({ categories, currentCategory }: CategoryDropdo
 
             {open && (
                 <div
-                    className="absolute top-full left-0 mt-1 min-w-[200px] py-1 rounded-lg border border-masam-border-default bg-masam-surface shadow-lg z-50 max-h-[280px] overflow-y-auto"
+                    className="absolute top-full right-0 md:left-0 md:right-auto mt-1 min-w-[180px] py-1 rounded-lg border border-masam-border-default bg-masam-surface shadow-lg z-50 max-h-[280px] overflow-y-auto"
                     role="listbox"
                 >
                     <Link

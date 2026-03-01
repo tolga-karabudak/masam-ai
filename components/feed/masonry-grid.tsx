@@ -15,7 +15,8 @@ const breakpointColumnsObj = {
     1280: 3, // xl
     1024: 3, // lg
     768: 2,  // md
-    640: 1   // sm
+    480: 2,  // small phones — 2 cols
+    0: 1     // very small
 }
 
 export const MasonryGrid = React.memo(function MasonryGrid({ setups, likedSetupIds = [] }: MasonryGridProps) {
@@ -32,8 +33,8 @@ export const MasonryGrid = React.memo(function MasonryGrid({ setups, likedSetupI
     return (
         <Masonry
             breakpointCols={breakpointColumnsObj}
-            className="flex -ml-4 w-auto"
-            columnClassName="pl-4 bg-clip-padding"
+            className="flex -ml-3 md:-ml-4 w-auto"
+            columnClassName="pl-3 md:pl-4 bg-clip-padding"
         >
             {setups.map((setup) => (
                 <SetupCard

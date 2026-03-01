@@ -96,27 +96,27 @@ export function BeforeAfterSlider({ beforeImage, afterImage, onClose, products, 
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-masam-black/95 backdrop-blur-sm p-4 animate-in fade-in duration-300">
+        <div className="fixed inset-0 z-50 flex flex-col bg-masam-black/95 backdrop-blur-sm animate-in fade-in duration-300 overflow-y-auto">
 
-            {/* Close button */}
-            <button
-                onClick={onClose}
-                className="absolute top-6 right-6 z-50 w-12 h-12 flex items-center justify-center rounded-full bg-masam-elevated border border-masam-border-subtle hover:bg-masam-hover transition-colors text-white outline-none"
-            >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12"></path></svg>
-            </button>
-
-            {/* Title */}
-            <div className="absolute top-8 left-1/2 -translate-x-1/2 z-50 flex flex-col items-center">
-                <h2 className="text-white text-[20px] font-medium tracking-tight mb-1">AI Özelleştirme Sonucu</h2>
-                <p className="text-white/60 text-[13px]">Karşılaştırmak için kaydırın</p>
+            {/* Top bar */}
+            <div className="flex items-center justify-between px-4 py-3 md:px-6 md:py-4 shrink-0">
+                <div>
+                    <h2 className="text-white text-[16px] md:text-[20px] font-medium tracking-tight">AI Özelleştirme Sonucu</h2>
+                    <p className="text-white/50 text-[12px] md:text-[13px]">Karşılaştırmak için kaydırın</p>
+                </div>
+                <button
+                    onClick={onClose}
+                    className="w-10 h-10 flex items-center justify-center rounded-full bg-masam-elevated border border-masam-border-subtle hover:bg-masam-hover transition-colors text-white outline-none shrink-0"
+                >
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12" /></svg>
+                </button>
             </div>
 
-            <div className={`flex gap-4 w-full max-h-[80vh] ${hasProducts ? 'max-w-7xl' : 'max-w-6xl justify-center'}`}>
+            <div className={`flex flex-col md:flex-row gap-4 flex-1 min-h-0 px-4 pb-4 md:px-6 md:pb-6 ${hasProducts ? 'max-w-7xl' : 'max-w-6xl'} w-full mx-auto`}>
                 {/* Slider */}
                 <div
                     ref={containerRef}
-                    className="relative flex-1 bg-masam-elevated overflow-hidden select-none cursor-ew-resize rounded-sm ring-1 ring-white/10"
+                    className="relative bg-masam-elevated overflow-hidden select-none cursor-ew-resize rounded-xl ring-1 ring-white/10 flex-1 min-h-[250px]"
                     style={aspectRatio ? { aspectRatio: `${aspectRatio}` } : { aspectRatio: '16/9' }}
                     onMouseMove={handleMouseMove}
                     onTouchMove={handleTouchMove}
@@ -126,7 +126,7 @@ export function BeforeAfterSlider({ beforeImage, afterImage, onClose, products, 
                     {/* After Image (full, sits behind) */}
                     <div className="absolute inset-0">
                         <Image src={afterImage} alt="After" fill className="object-contain" sizes="(max-width: 1152px) 100vw, 1152px" priority />
-                        <div className="absolute bottom-6 right-6 bg-masam-black/80 backdrop-blur-md px-3 py-1.5 rounded text-[11px] font-mono uppercase tracking-widest text-white border border-white/10">
+                        <div className="absolute bottom-3 right-3 md:bottom-6 md:right-6 bg-masam-black/80 backdrop-blur-md px-2.5 py-1 md:px-3 md:py-1.5 rounded text-[10px] md:text-[11px] font-mono uppercase tracking-widest text-white border border-white/10">
                             AI Sonuç
                         </div>
                     </div>
@@ -137,7 +137,7 @@ export function BeforeAfterSlider({ beforeImage, afterImage, onClose, products, 
                         style={{ clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` }}
                     >
                         <Image src={beforeImage} alt="Before" fill className="object-contain" sizes="(max-width: 1152px) 100vw, 1152px" priority />
-                        <div className="absolute bottom-6 left-6 bg-masam-black/80 backdrop-blur-md px-3 py-1.5 rounded text-[11px] font-mono uppercase tracking-widest text-white border border-white/10">
+                        <div className="absolute bottom-3 left-3 md:bottom-6 md:left-6 bg-masam-black/80 backdrop-blur-md px-2.5 py-1 md:px-3 md:py-1.5 rounded text-[10px] md:text-[11px] font-mono uppercase tracking-widest text-white border border-white/10">
                             Orijinal
                         </div>
                     </div>
@@ -147,18 +147,18 @@ export function BeforeAfterSlider({ beforeImage, afterImage, onClose, products, 
                         className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize touch-none transform -translate-x-1/2 shadow-[0_0_10px_rgba(0,0,0,0.5)]"
                         style={{ left: `${sliderPosition}%` }}
                     >
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 bg-white text-masam-black rounded-full flex items-center justify-center shadow-lg pointer-events-none">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3"></path></svg>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-10 h-10 md:w-8 md:h-8 bg-white text-masam-black rounded-full flex items-center justify-center shadow-lg pointer-events-none">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M8 9l-4 3 4 3M16 9l4 3-4 3" /></svg>
                         </div>
                     </div>
                 </div>
 
-                {/* Product cart sidebar */}
+                {/* Product cart — below on mobile, sidebar on desktop */}
                 {hasProducts && (
-                    <div className="hidden md:flex w-[320px] flex-col gap-3 shrink-0 overflow-y-auto">
+                    <div className="flex flex-col gap-3 md:w-[320px] shrink-0 md:overflow-y-auto">
                         <ProductListCard products={products!} compact />
 
-                        {/* Share button — always visible after AI result */}
+                        {/* Share button */}
                         {onShare && !shared && (
                             <button
                                 onClick={handleShareClick}

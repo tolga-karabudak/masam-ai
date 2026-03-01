@@ -52,9 +52,9 @@ export function ProductCardSkeleton() {
 
 export function FeedSkeleton() {
     return (
-        <div className="flex -ml-4 w-auto">
+        <div className="flex -ml-3 md:-ml-4 w-auto">
             {[0, 1, 2, 3].map((col) => (
-                <div key={col} className="pl-4 flex-1">
+                <div key={col} className={`pl-3 md:pl-4 flex-1 ${col >= 2 ? "hidden md:block" : ""}`}>
                     {[0, 1, 2].map((row) => (
                         <SetupCardSkeleton key={row} />
                     ))}
@@ -66,7 +66,7 @@ export function FeedSkeleton() {
 
 export function ProductGridSkeleton({ count = 10 }: { count?: number }) {
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-6">
             {Array.from({ length: count }).map((_, i) => (
                 <ProductCardSkeleton key={i} />
             ))}

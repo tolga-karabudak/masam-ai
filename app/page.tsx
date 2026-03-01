@@ -16,8 +16,8 @@ export default async function LandingPage() {
     return (
         <div className="min-h-[calc(100vh-4rem)] bg-masam-black flex flex-col">
             {/* Hero */}
-            <section className="max-w-[900px] mx-auto px-6 pt-16 md:pt-24 pb-12 text-center">
-                <h1 className="text-[40px] md:text-[52px] font-medium tracking-tight text-masam-text-primary leading-[1.1] mb-5">
+            <section className="max-w-[900px] mx-auto px-4 md:px-6 pt-14 md:pt-24 pb-12 text-center">
+                <h1 className="text-[32px] md:text-[52px] font-medium tracking-tight text-masam-text-primary leading-[1.1] mb-5">
                     Masanı hayal et.
                     <br />
                     <span className="text-masam-text-secondary">Ürünleri dene, setup'ını oluştur.</span>

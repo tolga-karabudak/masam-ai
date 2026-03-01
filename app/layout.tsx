@@ -29,7 +29,7 @@ export default function RootLayout({
     <html lang="tr" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="antialiased font-sans bg-masam-black text-masam-text-primary selection:bg-masam-border-strong selection:text-masam-black flex flex-col min-h-screen">
         <Header />
-        <main className="flex-1 mt-16">
+        <main className="flex-1 mt-14 md:mt-16">
           {children}
         </main>
       </body>

@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache"
 import { createClient } from "@supabase/supabase-js"
 import { createClient as createServerClient } from "@/lib/supabase/server"
 import { HeaderProductsDropdown } from "@/components/layout/header-products-dropdown"
+import { MobileMenu } from "@/components/layout/mobile-menu"
 
 /** Public data only - no cookies, safe to use inside unstable_cache */
 async function fetchCategories() {
@@ -27,20 +28,20 @@ export async function Header() {
     const categories = await getCategories()
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-40 flex justify-center pointer-events-none px-4 pt-4">
+        <header className="fixed top-0 left-0 right-0 z-40 flex justify-center pointer-events-none px-3 pt-3 md:px-4 md:pt-4">
             <div className="pointer-events-auto flex items-center gap-1 px-2 py-1.5 rounded-full bg-masam-black/70 backdrop-blur-xl border border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.5),inset_0_1px_0_rgba(255,255,255,0.04)]">
 
                 {/* Logo */}
                 <Link
                     href={user ? "/feed" : "/"}
-                    className="flex items-center px-3.5 py-1.5 rounded-full text-[14px] font-bold text-white tracking-tight hover:bg-white/[0.06] transition-colors"
+                    className="flex items-center px-3 py-1.5 rounded-full text-[14px] font-bold text-white tracking-tight hover:bg-white/[0.06] transition-colors"
                 >
                     masam
                     <span className="text-masam-text-muted">.ai</span>
                 </Link>
 
-                {/* Separator */}
-                <div className="w-px h-4 bg-white/[0.08]" />
+                {/* Separator — desktop */}
+                <div className="w-px h-4 bg-white/[0.08] hidden md:block" />
 
                 {/* Nav items — desktop only */}
                 <nav className="hidden md:flex items-center gap-0.5">
@@ -70,11 +71,11 @@ export async function Header() {
                     )}
                 </nav>
 
-                {/* Separator */}
+                {/* Separator — desktop */}
                 <div className="w-px h-4 bg-white/[0.08] hidden md:block" />
 
-                {/* Auth area */}
-                <div className="flex items-center">
+                {/* Auth area — desktop */}
+                <div className="hidden md:flex items-center">
                     {user ? (
                         <form action="/auth/signout" method="post">
                             <button className="px-3.5 py-1.5 rounded-full text-[12px] font-medium text-masam-text-muted hover:text-white hover:bg-white/[0.06] transition-all duration-200">
@@ -89,6 +90,11 @@ export async function Header() {
                             Giriş Yap
                         </Link>
                     )}
+                </div>
+
+                {/* Mobile menu */}
+                <div className="md:hidden">
+                    <MobileMenu isLoggedIn={!!user} categories={categories} />
                 </div>
             </div>
         </header>

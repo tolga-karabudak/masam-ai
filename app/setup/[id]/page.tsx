@@ -62,7 +62,7 @@ export default async function SetupDetailPage({ params }: { params: Promise<{ id
     }
 
     return (
-        <div className="flex h-[calc(100vh-4rem)] bg-masam-black">
+        <div className="flex flex-col md:flex-row md:h-[calc(100vh-4rem)] bg-masam-black">
             <SetupDetailClient
                 setup={setupResult.data}
                 products={products}

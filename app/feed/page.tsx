@@ -75,16 +75,16 @@ export default async function FeedPage({ searchParams }: { searchParams: SearchP
         .order('sort_order', { ascending: true })
 
     return (
-        <div className="min-h-screen bg-masam-black flex flex-col pt-24 px-6 lg:px-12 pb-24">
+        <div className="min-h-screen bg-masam-black flex flex-col pt-20 md:pt-24 px-4 md:px-6 lg:px-12 pb-16 md:pb-24">
             {/* Header area */}
-            <div className="max-w-[1600px] w-full mx-auto mb-10">
-                <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6 mb-8">
+            <div className="max-w-[1600px] w-full mx-auto mb-6 md:mb-10">
+                <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-4 md:gap-6 mb-6 md:mb-8">
                     <div>
-                        <h1 className="text-[28px] md:text-[32px] font-semibold tracking-tight text-masam-text-primary mb-1">
-                            Keşfet
+                        <h1 className="text-[24px] md:text-[32px] font-semibold tracking-tight text-masam-text-primary mb-1">
+                            Setup'ları Keşfet
                         </h1>
-                        <p className="text-masam-text-muted text-[14px]">
-                            İlham alacağın setup'ı bul ve kendi masanda dene.
+                        <p className="text-masam-text-muted text-[13px] md:text-[14px]">
+                            Topluluğun en iyi masa kurulumlarından ilham al.
                         </p>
                     </div>
                 </div>

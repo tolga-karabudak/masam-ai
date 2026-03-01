@@ -31,7 +31,7 @@ async function ProductList({ currentCategory }: { currentCategory: string | null
     }
 
     return (
-        <div className="grid grid-cols-2 lg:grid-cols-4 2xl:grid-cols-5 gap-6">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5 gap-3 md:gap-6">
             {products?.map((product) => (
                 <a
                     key={product.id}
@@ -55,7 +55,7 @@ async function ProductList({ currentCategory }: { currentCategory: string | null
                                 <div className="text-masam-text-muted">Görsel Yok</div>
                             )}
                         </div>
-                        <div className="p-5 flex-1 flex flex-col justify-between">
+                        <div className="p-3 md:p-5 flex-1 flex flex-col justify-between">
                             <div>
                                 <div className="text-[11px] text-masam-text-muted font-mono uppercase tracking-wider mb-2">
                                     {product.vendor || "Wraith"} • {getCategoryLabelTr(product.category)}
@@ -99,11 +99,11 @@ export default async function UrunlerPage({ searchParams }: { searchParams: Sear
     const categories = [...new Set((catRows ?? []).map((r) => r.category).filter(Boolean))] as string[]
 
     return (
-        <div className="min-h-screen bg-masam-black flex flex-col pt-24 px-6 lg:px-12 pb-24">
-            <div className="max-w-[1600px] w-full mx-auto mb-12 flex flex-col md:flex-row items-baseline justify-between gap-6 border-b border-masam-border-subtle pb-6">
+        <div className="min-h-screen bg-masam-black flex flex-col pt-20 md:pt-24 px-4 md:px-6 lg:px-12 pb-16 md:pb-24">
+            <div className="max-w-[1600px] w-full mx-auto mb-8 md:mb-12 flex flex-col md:flex-row items-baseline justify-between gap-4 md:gap-6 border-b border-masam-border-subtle pb-6">
                 <div>
-                    <h1 className="text-[32px] font-medium tracking-tight text-masam-text-primary mb-2">Ürünler</h1>
-                    <p className="text-masam-text-muted text-[15px]">Tüm Wraith modellerini inceleyin ve setup'ınızda hayal edin.</p>
+                    <h1 className="text-[24px] md:text-[32px] font-medium tracking-tight text-masam-text-primary mb-2">Ürünler</h1>
+                    <p className="text-masam-text-muted text-[13px] md:text-[15px]">Tüm Wraith modellerini inceleyin ve setup'ınızda hayal edin.</p>
                 </div>
                 {categories.length > 0 && (
                     <CategoryDropdown categories={categories} currentCategory={currentCategory} />

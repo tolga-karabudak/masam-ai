@@ -227,7 +227,7 @@ export function SetupDetailClient({ setup, products, setupProducts = [], current
                 )}
             </div>
 
-            <div className="w-[380px] h-full flex-shrink-0 relative overflow-hidden">
+            <div className="w-full md:w-[380px] md:h-full flex-shrink-0 relative overflow-hidden border-t md:border-t-0 border-masam-border-subtle">
                 <ProductPanel
                     products={products}
                     onApply={handleApply}

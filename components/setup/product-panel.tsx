@@ -134,7 +134,7 @@ export function ProductPanel({
             )}
 
             {/* Product List */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3">
+            <div className="flex-1 overflow-y-auto p-4 space-y-3 max-h-[50vh] md:max-h-none">
                 {paged.length === 0 ? (
                     <div className="text-center py-12 text-masam-text-muted text-[13px]">
                         Bu kategoride ürün bulunamadı.
@@ -209,18 +209,18 @@ export function ProductPanel({
                         type="button"
                         onClick={() => setPage((p) => Math.max(0, p - 1))}
                         disabled={page === 0}
-                        className="px-2.5 py-1 rounded-lg border border-masam-border-subtle text-[12px] text-masam-text-secondary hover:bg-masam-hover disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                        className="w-10 h-10 flex items-center justify-center rounded-lg border border-masam-border-subtle text-[14px] text-masam-text-secondary hover:bg-masam-hover disabled:opacity-30 disabled:pointer-events-none transition-colors"
                     >
                         ←
                     </button>
-                    <span className="text-[12px] text-masam-text-muted">
+                    <span className="text-[12px] text-masam-text-muted tabular-nums">
                         {page + 1} / {pageCount}
                     </span>
                     <button
                         type="button"
                         onClick={() => setPage((p) => Math.min(pageCount - 1, p + 1))}
                         disabled={page >= pageCount - 1}
-                        className="px-2.5 py-1 rounded-lg border border-masam-border-subtle text-[12px] text-masam-text-secondary hover:bg-masam-hover disabled:opacity-30 disabled:pointer-events-none transition-colors"
+                        className="w-10 h-10 flex items-center justify-center rounded-lg border border-masam-border-subtle text-[14px] text-masam-text-secondary hover:bg-masam-hover disabled:opacity-30 disabled:pointer-events-none transition-colors"
                     >
                         →
                     </button>
