@@ -53,9 +53,19 @@ export const SetupCard = React.memo(function SetupCard({ setup, isLiked = false 
             <div className="px-1 pt-3 pb-0.5">
                 {/* Username */}
                 {displayName && (
-                    <p className="text-masam-text-faint text-[11px] font-medium tracking-wide uppercase mb-1 truncate">
-                        {setup.profiles?.username || displayName}
-                    </p>
+                    setup.profiles?.username ? (
+                        <Link
+                            href={`/profil/${setup.profiles.username}`}
+                            onClick={(e) => e.stopPropagation()}
+                            className="text-masam-text-faint text-[11px] font-medium tracking-wide uppercase mb-1 truncate block hover:text-masam-text-secondary transition-colors"
+                        >
+                            @{setup.profiles.username}
+                        </Link>
+                    ) : (
+                        <p className="text-masam-text-faint text-[11px] font-medium tracking-wide uppercase mb-1 truncate">
+                            {displayName}
+                        </p>
+                    )
                 )}
 
                 {/* Title */}

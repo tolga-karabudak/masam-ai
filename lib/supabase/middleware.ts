@@ -4,7 +4,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 export async function updateSession(request: NextRequest) {
     const path = request.nextUrl.pathname
     // Public paths: skip auth entirely for faster response
-    if (path === '/' || path.startsWith('/urunler') || path.startsWith('/api')) {
+    if (path === '/' || path.startsWith('/urunler') || path.startsWith('/api') || path.startsWith('/profil')) {
         return NextResponse.next({ request })
     }
 
