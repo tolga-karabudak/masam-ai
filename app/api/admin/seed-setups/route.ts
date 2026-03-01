@@ -1,11 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey)
-
 // Mock setup data based on the PRD
 const mockSetups = [
     {
@@ -76,6 +71,11 @@ const mockSetups = [
 
 export async function POST(request: Request) {
     try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.SUPABASE_SERVICE_ROLE_KEY!
+        )
+
         const authHeader = request.headers.get('authorization')
         if (authHeader !== `Bearer ${process.env.ADMIN_SECRET_TOKEN}`) {
             return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })

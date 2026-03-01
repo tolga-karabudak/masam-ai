@@ -1,12 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
-// We use the service role key here because this is an admin route that needs to bypass RLS to insert products
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY!
-
-const supabase = createClient(supabaseUrl, supabaseServiceKey)
-
 const CATEGORY_MAP: Record<string, string> = {
     'Mouse': 'mouse',
     'Klavye': 'keyboard',
@@ -20,6 +14,11 @@ const CATEGORY_MAP: Record<string, string> = {
 
 export async function POST(request: Request) {
     try {
+        const supabase = createClient(
+            process.env.NEXT_PUBLIC_SUPABASE_URL!,
+            process.env.SUPABASE_SERVICE_ROLE_KEY!
+        )
+
         // Check for a simple admin token to prevent unauthorized execution
         const authHeader = request.headers.get('authorization')
         if (authHeader !== `Bearer ${process.env.ADMIN_SECRET_TOKEN}`) {
