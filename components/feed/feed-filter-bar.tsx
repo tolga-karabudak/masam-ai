@@ -3,6 +3,18 @@
 import { useRouter, usePathname } from "next/navigation"
 import { useCallback, useRef, useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import {
+    Moon,
+    Flame,
+    Cpu,
+    Snowflake,
+    TreePine,
+    Cherry,
+    Ghost,
+    Gamepad2,
+    Sunset,
+    Monitor,
+} from "lucide-react"
 
 export interface Vibe {
     id: string
@@ -20,7 +32,7 @@ interface FeedFilterBarProps {
     userVibe: string | null
 }
 
-/* ── Animated SVG icons per emoji key ── */
+/* ── Animated Lucide icon wrapper ── */
 
 function SparkleIcon({ active }: { active: boolean }) {
     return (
@@ -39,148 +51,77 @@ function SparkleIcon({ active }: { active: boolean }) {
     )
 }
 
-function ShadowFlameIcon({ active }: { active: boolean }) {
-    return (
-        <motion.svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <motion.path
-                d="M12 23C7.58 23 4 19.42 4 15C4 11.83 5.67 9.21 6.75 8.08C6.89 7.93 7.13 8.04 7.11 8.24C6.87 10.53 8.54 12.19 9.68 12.92C9.84 13.02 10.04 12.89 10.01 12.71C9.64 10.58 10.13 7.87 12.28 5.69C12.41 5.56 12.63 5.63 12.65 5.81C12.87 7.63 14.41 9.15 15.42 9.8C17.39 11.07 18.75 12.66 19.25 14.25C20.32 17.58 18.39 21.15 15.06 22.51C14.08 22.88 13.04 23.02 12 23Z"
-                fill="currentColor"
-                animate={active
-                    ? { y: [0, -1.5, 0, 1, 0], scale: [1, 1.05, 1, 0.97, 1], opacity: [0.9, 1, 0.8, 1, 0.9] }
-                    : { opacity: [0.6, 0.8, 0.6] }
-                }
-                transition={{ duration: active ? 1.2 : 2.5, repeat: Infinity, ease: "easeInOut" }}
-            />
-            {active && (
-                <motion.path
-                    d="M12 23C10 23 8.2 21.8 7.5 20C7 18.7 7 17 8 15.5C8.5 14.8 9.2 14.2 10 14C10.2 13.9 10.3 14.1 10.2 14.3C9.8 15.5 10.5 16.8 11.5 17.5C12.5 18.2 13 19 13 20C13 21.1 12.5 22 12 23Z"
-                    fill="currentColor"
-                    opacity={0.5}
-                    animate={{ opacity: [0.3, 0.7, 0.3], y: [0, -1, 0] }}
-                    transition={{ duration: 0.8, repeat: Infinity, ease: "easeInOut" }}
-                />
-            )}
-        </motion.svg>
-    )
-}
-
-function SnowflakeIcon({ active }: { active: boolean }) {
-    return (
-        <motion.svg
-            width="16" height="16" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-            animate={{ rotate: active ? 360 : 0 }}
-            transition={{ duration: active ? 8 : 0, repeat: Infinity, ease: "linear" }}
-        >
-            <motion.g
-                animate={active ? { scale: [1, 1.1, 1] } : {}}
-                transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-            >
-                <line x1="12" y1="2" x2="12" y2="22" />
-                <line x1="4.93" y1="4.93" x2="19.07" y2="19.07" />
-                <line x1="2" y1="12" x2="22" y2="12" />
-                <line x1="4.93" y1="19.07" x2="19.07" y2="4.93" />
-                {/* Branches */}
-                <line x1="12" y1="2" x2="14" y2="5" />
-                <line x1="12" y1="2" x2="10" y2="5" />
-                <line x1="22" y1="12" x2="19" y2="14" />
-                <line x1="22" y1="12" x2="19" y2="10" />
-                <line x1="12" y1="22" x2="14" y2="19" />
-                <line x1="12" y1="22" x2="10" y2="19" />
-                <line x1="2" y1="12" x2="5" y2="14" />
-                <line x1="2" y1="12" x2="5" y2="10" />
-            </motion.g>
-        </motion.svg>
-    )
-}
-
-function NeonIcon({ active }: { active: boolean }) {
-    return (
-        <motion.svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-            <motion.path
-                d="M6 11L8 7L10 13L12 5L14 15L16 9L18 11"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                animate={active
-                    ? { pathLength: [0, 1], opacity: [0.5, 1] }
-                    : {}
-                }
-                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-                style={active ? {} : { pathLength: 1 }}
-            />
-            {active && (
-                <motion.path
-                    d="M6 11L8 7L10 13L12 5L14 15L16 9L18 11"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    opacity={0.2}
-                    animate={{ opacity: [0.1, 0.3, 0.1] }}
-                    transition={{ duration: 1, repeat: Infinity, ease: "easeInOut" }}
-                    style={{ filter: "blur(4px)" }}
-                />
-            )}
-            {/* Base line */}
-            <motion.line
-                x1="4" y1="18" x2="20" y2="18"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                opacity={0.3}
-                strokeLinecap="round"
-            />
-        </motion.svg>
-    )
-}
-
-/* ── Fallback animated icon ── */
-function PulseOrb({ active }: { active: boolean }) {
+function AnimatedVibeIcon({ icon: Icon, active }: { icon: typeof Moon; active: boolean }) {
     return (
         <motion.div
-            className="w-4 h-4 rounded-full bg-current"
             animate={active
-                ? { scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }
-                : { opacity: 0.5 }
+                ? { scale: [1, 1.15, 1], opacity: [0.9, 1, 0.9] }
+                : { opacity: 0.7 }
             }
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
+            transition={{ duration: active ? 2 : 0, repeat: active ? Infinity : 0, ease: "easeInOut" }}
+        >
+            <Icon size={16} strokeWidth={1.5} />
+        </motion.div>
     )
 }
 
-/* ── Map emoji to icon component ── */
-const ICON_MAP: Record<string, React.ComponentType<{ active: boolean }>> = {
-    "🖤": ShadowFlameIcon,
-    "🤍": SnowflakeIcon,
-    "🌈": NeonIcon,
+/* ── Map vibe id to Lucide icon ── */
+const VIBE_ICON_MAP: Record<string, typeof Moon> = {
+    shadow_realm: Moon,
+    dragon_forge: Flame,
+    cyber_district: Cpu,
+    frost_kingdom: Snowflake,
+    enchanted_grove: TreePine,
+    sakura_garden: Cherry,
+    phantom_vault: Ghost,
+    neon_arcade: Gamepad2,
+    sunset_lounge: Sunset,
+    command_bridge: Monitor,
 }
 
-function VibeIcon({ emoji, active }: { emoji: string; active: boolean }) {
-    const Icon = ICON_MAP[emoji] || PulseOrb
-    return <Icon active={active} />
+function VibeIcon({ vibeId, active }: { vibeId: string; active: boolean }) {
+    const Icon = VIBE_ICON_MAP[vibeId]
+    if (!Icon) {
+        return (
+            <motion.div
+                className="w-4 h-4 rounded-full bg-current"
+                animate={active ? { scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] } : { opacity: 0.5 }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            />
+        )
+    }
+    return <AnimatedVibeIcon icon={Icon} active={active} />
 }
 
 /* ── Floating particles behind active tab ── */
+const PARTICLE_SEEDS = [
+    { ix: 45, ax: 30, ay: 10, dur: 2.2 },
+    { ix: 62, ax: 55, ay: 5, dur: 2.8 },
+    { ix: 28, ax: 72, ay: 15, dur: 3.1 },
+    { ix: 75, ax: 40, ay: -5, dur: 2.5 },
+    { ix: 38, ax: 65, ay: 8, dur: 3.4 },
+    { ix: 55, ax: 22, ay: -10, dur: 2.9 },
+]
+
 function ActiveParticles() {
     return (
         <div className="absolute inset-0 overflow-hidden rounded-full pointer-events-none">
-            {[...Array(6)].map((_, i) => (
+            {PARTICLE_SEEDS.map((seed, i) => (
                 <motion.div
                     key={i}
                     className="absolute w-1 h-1 rounded-full bg-white/30"
                     initial={{
-                        x: `${20 + Math.random() * 60}%`,
+                        x: `${seed.ix}%`,
                         y: "100%",
                         opacity: 0,
                     }}
                     animate={{
-                        y: [null, `${-20 + Math.random() * 40}%`],
+                        y: [null, `${seed.ay}%`],
                         opacity: [0, 0.6, 0],
-                        x: `${10 + Math.random() * 80}%`,
+                        x: `${seed.ax}%`,
                     }}
                     transition={{
-                        duration: 2 + Math.random() * 1.5,
+                        duration: seed.dur,
                         repeat: Infinity,
                         delay: i * 0.4,
                         ease: "easeOut",
@@ -282,7 +223,7 @@ export function FeedFilterBar({ vibes, activeVibe, userVibe }: FeedFilterBarProp
                                 <span className="relative z-10">
                                     {item.isAll
                                         ? <SparkleIcon active={isActive} />
-                                        : <VibeIcon emoji={item.emoji} active={isActive} />
+                                        : <VibeIcon vibeId={item.id} active={isActive} />
                                     }
                                 </span>
 

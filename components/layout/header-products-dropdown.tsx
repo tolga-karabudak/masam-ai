@@ -59,12 +59,14 @@ export function HeaderProductsDropdown({ categories }: HeaderProductsDropdownPro
             </button>
 
             {open && (
+                <div className="absolute top-full left-1/2 -translate-x-1/2 pt-3 z-50">
                 <div
-                    className="absolute top-full left-1/2 -translate-x-1/2 mt-3 min-w-[180px] py-1.5 rounded-2xl bg-masam-black/80 backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6)] z-50"
+                    className="min-w-[180px] py-1.5 rounded-2xl bg-masam-black/80 backdrop-blur-xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
                     role="menu"
                 >
                     <Link
                         href="/urunler"
+                        onClick={() => setOpen(false)}
                         className="block px-4 py-2 text-[13px] text-masam-text-secondary hover:text-white hover:bg-white/[0.06] transition-colors rounded-lg mx-1.5"
                         role="menuitem"
                     >
@@ -74,12 +76,14 @@ export function HeaderProductsDropdown({ categories }: HeaderProductsDropdownPro
                         <Link
                             key={cat}
                             href={`/urunler?category=${encodeURIComponent(cat)}`}
+                            onClick={() => setOpen(false)}
                             className="block px-4 py-2 text-[13px] text-masam-text-secondary hover:text-white hover:bg-white/[0.06] transition-colors rounded-lg mx-1.5"
                             role="menuitem"
                         >
                             {getCategoryLabelTr(cat)}
                         </Link>
                     ))}
+                </div>
                 </div>
             )}
         </div>

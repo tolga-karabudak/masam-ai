@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 import * as fal from "@fal-ai/serverless-client"
+import sharp from "sharp"
 import fs from "fs"
 import path from "path"
 import { cookies } from "next/headers"
@@ -286,7 +287,8 @@ export async function POST(request: Request) {
         const imageRes = await fetch(currentImageUrl)
         if (!imageRes.ok) throw new Error(`Failed to fetch result image: ${imageRes.status}`)
         const imageBuffer = Buffer.from(await imageRes.arrayBuffer())
-        const storagePath = `user/${user.id}/${Date.now()}.png`
+        const ts = Date.now()
+        const storagePath = `user/${user.id}/${ts}.png`
         console.log("generate-from-vibe: uploading to storage...")
         const { error: uploadErr } = await adminDb.storage
             .from("setups")
@@ -300,6 +302,25 @@ export async function POST(request: Request) {
             data: { publicUrl: imageUrl },
         } = adminDb.storage.from("setups").getPublicUrl(storagePath)
 
+        // Generate WebP thumbnail (800px wide)
+        let thumbnailUrl = imageUrl
+        try {
+            const thumbBuffer = await sharp(imageBuffer)
+                .resize(800, null, { withoutEnlargement: true })
+                .webp({ quality: 80 })
+                .toBuffer()
+            const thumbPath = `user/${user.id}/thumb/${ts}.webp`
+            const { error: thumbErr } = await adminDb.storage
+                .from("setups")
+                .upload(thumbPath, thumbBuffer, { contentType: "image/webp" })
+            if (!thumbErr) {
+                thumbnailUrl = adminDb.storage.from("setups").getPublicUrl(thumbPath).data.publicUrl
+                console.log("generate-from-vibe: thumbnail created", (thumbBuffer.length / 1024).toFixed(0) + "KB")
+            }
+        } catch (thumbError) {
+            console.warn("generate-from-vibe: thumbnail generation failed, using original", thumbError)
+        }
+
         // Save all selections in peripheral_zones
         const peripheralZones: Record<string, string> = {}
         for (const key of AI_CATEGORIES) {
@@ -312,7 +333,7 @@ export async function POST(request: Request) {
                 user_id: user.id,
                 title: "Vibe Setup",
                 image_url: imageUrl,
-                thumbnail_url: imageUrl,
+                thumbnail_url: thumbnailUrl,
                 source: "user",
                 is_public: false,
                 categories: [vibe_id],
